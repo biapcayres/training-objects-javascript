@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Lâmpada</title>
+    <script src="backend.js"></script>
+    <script>
+        
+        function html(){
+
+            return `
+                <img width="200" src="assets/lightbulb_${lampada.pegar_estado()}.png"/>
+                <img width="80" src="assets/switch_${lampada.pegar_estado()}.png"
+                    onclick="lampada.alternar_estado(); render()"
+                />
+            `;
+        }
+
+        function render(element_selector = '#lampada'){
+
+            document.querySelector(element_selector).innerHTML = html();
+        }
+    </script>
+</head>
+<body style="background-color: black;">
+    
+    <div id="lampada" style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 16px);
+    ">
+    </div>    
+
+    <script>
+
+        render();
+    </script>
+</body>
+</html>

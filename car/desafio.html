@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Desafio #1 - Carro</title>
+        <script src="desafio.js"></script>
+        <script>
+
+            function renderizar_carro(){
+
+                const carro_div = document.querySelector('#Carro');
+
+                // Desmembra as propiedades do objeto retornado como variáveis.
+                // Ou seja, define variáveis com os identificadores e valores das propriedades do objeto retonado.
+                const { quantidade_combustivel, porcentagem_do_tanque } = carro.pegar_dados_do_tanque();
+
+                carro_div.innerHTML = `
+                    <ul>
+                        <li>Cor: ${carro.cor}</li>
+                        <li>Marca: ${carro.marca}</li>
+                        <li>Modelo: ${carro.modelo}</li>
+                        <li>Ano: ${carro.ano}</li>
+                        <li>Consumo médio urbano: ${carro.consumo_medio_urbano}</li>
+                        <li>Consumo médio estrada: ${carro.consumo_medio_estrada}</li>
+                        <li>Capacidade do tanque: ${formatar_unidade(carro.capacidade_do_tanque, 'L')}</li>
+                        <li>
+                            Quantidade de combustível:
+                            ${formatar_unidade(quantidade_combustivel, 'L')}
+                            (${formatar_unidade(porcentagem_do_tanque, '%')})
+                        </li>
+                        <li>Quilometragem rodada: ${carro.mostrar_quilometragem_rodada()}</li>  
+                        <li>Último consumo: ${formatar_unidade(carro.ultimo_consumo, 'L')}</li>  
+                    </ul>
+                `;
+            }
+
+            function formatar_unidade(quantidade, unidade){
+
+                return `${Number(quantidade).toFixed(2)} ${unidade}`;
+            }
+        </script>
+    </head>
+    <body>
+        
+        <div id="Carro"></div>
+
+        <hr>
+
+        <h3>Percorrer quilômetros</h3>
+        <input type="number" id="percorrer_deslocamento">
+        <select id="percorrer_tipo_de_deslocamento">
+            <option value="urbano">Urbano</option>
+            <option value="estrada">Estrada</option>
+        </select>
+        <button onclick="carro.percorrer_quilometros(percorrer_deslocamento.value, percorrer_tipo_de_deslocamento.value)">
+            Percorrer
+        </button>
+
+        <hr>
+
+        <h3>Cálcular custo de viagem</h3>
+        <input type="number" id="custo_deslocamento">
+        <select id="custo_tipo_de_deslocamento">
+            <option value="urbano">Urbano</option>
+            <option value="estrada">Estrada</option>
+        </select>
+        <button onclick="carro.calcular_custo_viagem(custo_deslocamento.value, custo_tipo_de_deslocamento.value)">
+            Calcular
+        </button>
+
+        <script>
+
+            renderizar_carro();
+        </script>
+    </body>
+</html>
