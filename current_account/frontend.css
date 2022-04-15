@@ -1,0 +1,147 @@
+header{
+    background-color: rgba(0, 0, 0, 0.678);
+    padding: 6px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color:white;
+    font-size: 12px;
+    height: 80px;
+}
+
+body header *{
+    color:white;
+    border-color: white;
+}
+
+header input#deposito_input{
+    border: none;
+    border-bottom: 1px solid;
+    padding: 0;
+    background: none;
+}
+
+header input#saque_input{
+    border: none;
+    border-bottom: 1px solid;
+    padding: 0;
+    background: none;
+}
+
+#saldo{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    color: #0f0;
+}
+
+#extrato{
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+#extrato_lista{
+    list-style: none; /*tirar o pontinho da lista*/
+    padding: 0;
+    margin:0;  
+}
+
+#extrato_lista .operacao{
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*linha separando as transações, menos na última transação*/
+#extrato_lista .operacao:not(:last-child){
+    padding-bottom: 16px;
+    border-bottom: 1px solid black;
+    margin-bottom: 16px;
+}
+
+/*#extrato_lista .operacao_container{
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+} NÃO MUDOU ND
+*/
+
+#extrato_lista .operacao_container alinhamento_esquerda{align-items: flex-start;}
+
+#extrato_lista .operacao_container alinhamento_direita{align-items: flex-end;}
+
+#extrato_lista .operacao_icone{
+    size: 18px;
+    border-radius: 50%;
+    padding: 8px;
+    background-color: rgba(128, 128, 128, 0.608);
+}
+
+#extrato_lista .operacao_titulo{
+    font-weight: bold;
+    text-transform: capitalize; /* primeira letra maiuscula */
+}
+
+/*deixar o saque vermelho*/
+#extrato_lista .operacao.saque .operacao_quantia{
+    color:#ff7539
+}
+
+/*deixar o deposito verde*/
+#extrato_lista .operacao.deposito .operacao_quantia{
+    color:#9cff57
+}
+
+/*colocar '+' e '-' antes do valor sacado ou depositado*/
+#extrato_lista .operacao.saque .operacao_quantia::before{content: '-'} 
+
+#extrato_lista .operacao.deposito .operacao_quantia::before{content: '+'}
+
+#extrato_lista .operacao_data{
+    font-size: 12px;
+    color: grey;
+}
+
+#extrato_lista .operacao_saldo{
+    color: rgb(3, 30, 3);
+    padding-top: 4px;
+}
+
+#senha_botao{
+    border-radius: 6px;
+    margin:6px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.678);
+}
+
+#senha{
+    bottom: 0;
+    position: fixed; /*fixado na parte debaixo*/
+    right:0;
+}/* BOTÃO PRECISA ACOMPANHAR A PAGINA QND O EXTRATO CRIA UM SCROLL*/
+
+#deposito_botao{
+    border: 2px solid green;
+    border-radius: 6px;
+    background-color: green;
+    margin: 6px;
+    font-weight: bold;
+}
+
+#saque_botao{
+    border: 2px solid red;
+    border-radius: 6px;
+    background-color: red;
+    font-weight: bold;
+    margin: 6px;
+}
+
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+

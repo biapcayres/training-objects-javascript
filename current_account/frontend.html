@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Desafio conta corrente</title>
+        <script src="backend.js"></script>
+        <link rel="stylesheet" href="frontend.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>    
+            function html(){
+                
+                const options = { style: 'currency', currency: 'BRL' };
+
+                const extrato = conta_corrente.pegar_extrato();
+
+                // ordenar o extrato dos mais recentes -> menos recentes
+                const extrato_ordenado = extrato.sort((a, b) => new Date(b.criado_em) - new Date(a.criado_em));
+                
+                return `
+                    <div id="saldo">
+                        
+                        <p>${conta_corrente.pegar_saldo(true)}</p>
+                    </div>
+                    
+                    <div id="extrato">
+                        <ul id= "extrato_lista">
+
+                            ${extrato_ordenado.map(operacao => `
+                                
+                                <li class="operacao ${operacao.tipo}">
+                                
+                                    <div class='operacao_icone'>
+                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                    </div>
+                                    <div class='operacao_container alinhamento_esquerda'>    
+                                        <div class='operacao_titulo'>${operacao.tipo}</div>
+                                        <div class='operacao_quantia'>${operacao.quantia.toLocaleString('pt-BR', options)}</div>
+                                    </div>
+                                    <div class='operacao_container alinhamento_direita'>
+                                        <div class='operacao_data'>${new Date(operacao.criado_em).toLocaleTimeString()}</div>
+                                        <div class='operacao_saldo'>${operacao.saldo.toLocaleString('pt-BR', options)}</div>
+                                    </div>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            function render(element_selector = '#conta'){
+
+                document.querySelector(element_selector).innerHTML = html();
+            }
+
+            function sacar(valor){
+
+                try {
+
+                    conta_corrente.sacar(valor);
+                    render();
+                }
+                catch (error) {
+                    
+                    alert(error.message);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1 id="conta_corrente">Conta Corrente</h1>
+
+            <div id="deposito_input_botao">
+                R$
+                <input id="deposito_input" type="number" style="width:60px" min='1'/>
+                <button id="deposito_botao" onclick = "conta_corrente.depositar(deposito_input.value); render()">Depositar</button>
+               
+            
+            </div>
+       
+            <div id="saque_input_botao">
+                R$
+                <input id="saque_input" type="number" style="width:60px" min="1"/>
+                <button id="saque_botao" onclick="sacar(saque_input.value)">Sacar</button>
+            
+            </div>
+
+        </header>
+        
+        <div id="conta">
+            
+        </div>  
+
+        <p id="senha">
+            <input id="senha_input" type="text" style="width:60px" minlength="4"/>
+            <button id="senha_botao" onclick = "conta_corrente.alterar_senha(senha.value)">Alterar senha</button> 
+           
+            
+        </p>
+
+        <script>
+        
+            render();
+        
+        </script>
+    </body>
+</html>
