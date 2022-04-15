@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio conta corrente</title>
+    <script src="backend.js"></script>
+    <script>
+        
+        function html(){
+
+            return `
+               <div style="
+                    border:2px solid black;
+                    height: 80px;
+                    width: 150px;
+                ">
+                
+                    <p>Saldo atual: ${conta_corrente.pegar_saldo()}</p>
+
+
+                </div> 
+            `;
+        }
+ 
+
+        function render(element_selector = '#conta'){
+
+            document.querySelector(element_selector).innerHTML = html();
+        }
+
+        function sacar(valor){
+
+            try {
+
+                conta_corrente.sacar(valor);
+                render();
+            }
+            catch (error) {
+                
+                alert(error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <div id="conta"></div>
+
+    <p>
+        <input id="saque" type="number" style="width:60px" min="1"/>
+        <button onclick="sacar(saque.value)">Sacar</button>
+    </p>
+
+    <p>
+        <input id="deposito" type="number" style="width:60px" min='1'/>
+        <button onclick = "conta_corrente.depositar(deposito.value); render()">Depositar</button>
+    </p>    
+
+    <p>
+        <input id="senha" type="text" style="width:60px" minlength="4"/>
+        <button onclick = "conta_corrente.alterar_senha(senha.value)">Alterar senha</button>
+    </p>    
+
+    <script>
+
+
+    
+        render();
+    </script>
+</body>
+</html>
